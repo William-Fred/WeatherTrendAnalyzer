@@ -16,6 +16,9 @@ namespace WeatherTrendAnalyzer
             //Register weather service 
             builder.Services.AddHttpClient<WeatherForecastService>();
 
+            //Register calculate service
+            builder.Services.AddSingleton<CalculateWeatherService>();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
