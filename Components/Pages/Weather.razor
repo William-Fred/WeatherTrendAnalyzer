@@ -9,10 +9,15 @@
 
 <h3 class="text-xl font-semibold mb-4 text-center">Väderprognos</h3>
 
+
 <div class="container d-flex justify-content-center">
-    <div class="w-50">
+    <div class="w-100">
         <div class="mb-4">
             <div class="d-flex flex-column align-items-center gap-4">
+                <div class="form-group w-50">
+                    <input id="cityInput" type="text" class="form-control w-100" @bind="_cityName" placeholder="Skriv in stad..." style="text-align:center" />
+                </div>
+
                 <div class="form-group">
                     <label for="daysInput" class="font-weight-bold">Antal dagar (3–10):</label>
                     <input id="daysInput" type="number" class="form-control text-center" min="3" max="10" @bind="_forecastDays" />
@@ -38,7 +43,7 @@ else if (_weatherForecastResult != null)
         <p><strong>Totalt antal timmar med regn:</strong> @_weatherForecastResult.TotalRainHours </p>
     </div>
 
-    <h4 class="text-lg font-semibold mb-2 mt-5">Daglig prognos för de närmsta @_forecastDays dagarna</h4>
+    <h4 class="text-lg font-semibold mb-2 mt-5">Daglig prognos för de närmsta @_forecastDays dagarna i staden @_cityName</h4>
 
     <div class="row">
         @foreach (var day in _weatherForecastResult.DailyForecast!)
@@ -62,11 +67,13 @@ else if (_weatherForecastResult != null)
 
     private bool _isLoading;
     private int _forecastDays = 3; //Default
+    private string _cityName = "";
 
     private async Task LoadWeatherForecastAsync()
     {
         _isLoading = true;
-        var rawWeather = await WeatherForecastService.GetWeatherForecastAsync(_forecastDays);
+        var location = await WeatherForecastService.GetCoordinatesForCityAsync(_cityName);
+        var rawWeather = await WeatherForecastService.GetWeatherForecastAsync(_forecastDays, location.latitude, location.longitude, location.timezone);
         _weatherForecastResult = CalculateWeatherService.CalculateWeatherForecast(rawWeather);
         _isLoading = false;
     }
