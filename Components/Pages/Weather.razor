@@ -1,21 +1,63 @@
 ﻿@page "/weather"
+@using WeatherTrendAnalyzer.WeatherForecast.Models.Weather
 @using WeatherTrendAnalyzer.WeatherForecast.Services
 @attribute [StreamRendering]
 @inject WeatherForecastService WeatherForecastService
+@inject CalculateWeatherService CalculateWeatherService
 
 <PageTitle>Weather</PageTitle>
 
-<h1>Weather forecast</h1>
+<h3 class="text-xl font-semibold mb-4 text-center">Väderprognos</h3>
 
-<p>This component demonstrates showing data.</p>
-<label for="daysInput" class="font-weight-bold">Antal dagar (3–10):</label>
-<button class="btn btn-primary mt-2" @onclick="LoadWeatherForecastAsync">Hämta väder</button>
+<div class="container d-flex justify-content-center">
+    <div class="w-50">
+        <div class="mb-4">
+            <div class="d-flex flex-column align-items-center gap-4">
+                <div class="form-group">
+                    <label for="daysInput" class="font-weight-bold">Antal dagar (3–10):</label>
+                    <input id="daysInput" type="number" class="form-control text-center" min="3" max="10" @bind="_forecastDays" />
+                </div>
+
+                <button class="btn btn-primary mt-2" @onclick="LoadWeatherForecastAsync">Hämta väder</button>
+            </div>
+        </div>
+    </div>
+</div>
 @if (_isLoading)
 {
     <p><em>Loading...</em></p>
 }
+else if (_weatherForecastResult != null)
+{
+    <div class="bg-white shadow rounded-lg p-4 mb-6">
+        <p><strong>Genomsnittlig temperatur:</strong> @_weatherForecastResult.AverageTemp.ToString("F1") °C</p>
+        <p><strong>Max temperatur:</strong> @_weatherForecastResult.MaxTemp @_weatherForecastResult.TemperatureUnit</p>
+        <p><strong>Min temperatur:</strong> @_weatherForecastResult.MinTemp @_weatherForecastResult.TemperatureUnit</p>
+        <p><strong>Totalt antal timmar med regn:</strong> @_weatherForecastResult.TotalRainHours @_weatherForecastResult.RainUnit</p>
+    </div>
 
+    <h4 class="text-lg font-semibold mb-2">Daglig prognos</h4>
+
+    <div class="row">
+        @foreach (var day in _weatherForecastResult.DailyForecast!)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">@day.Date.ToString("yyyy-MM-dd")</h5>
+                        <p><strong>Medeltemp:</strong> @day.AverageTemp</p>
+                        <p><strong>Max:</strong> @day.MaxTemperature</p>
+                        <p><strong>Min:</strong> @day.MinTemperature</p>
+                        <p><strong>Regniga timmar:</strong> @day.TotalRainDays</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
 @code {
+    private WeatherForecastResult? _weatherForecastResult;
+
     private bool _isLoading;
     private int _forecastDays = 3; //Default
 
@@ -23,6 +65,7 @@
     {
         _isLoading = true;
         var rawWeather = await WeatherForecastService.GetWeatherForecastAsync(_forecastDays);
-        Console.WriteLine(rawWeather);
+        _weatherForecastResult = CalculateWeatherService.CalculateWeatherForecast(rawWeather);
+        _isLoading = false;
     }
 }
