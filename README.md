@@ -18,7 +18,7 @@ Väl i applikationen:
 ### Klona repot
 
 git clone https://github.com/William-Fred/WeatherTrendAnalyzer.git
-cd 
+ 
 
 ## Projektstruktur
 
