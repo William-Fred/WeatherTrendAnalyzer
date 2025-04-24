@@ -28,6 +28,12 @@
         </div>
     </div>
 </div>
+
+@if (_hasSearched && string.IsNullOrEmpty(_cityName))
+{
+    <p class="text-red-500">Vänligen ange en stad innan du söker.</p>
+}
+
 @if (_isLoading)
 {
     <p><em>Loading...</em></p>
@@ -66,15 +72,24 @@ else if (_weatherForecastResult != null)
     private WeatherForecastResult? _weatherForecastResult;
 
     private bool _isLoading;
+    private bool _hasSearched = false;
+
     private int _forecastDays = 3; //Default
     private string _cityName = "";
 
     private async Task LoadWeatherForecastAsync()
     {
+        _hasSearched = true;
+        if (string.IsNullOrEmpty(_cityName))
+        {
+            return;
+        }
+
         _isLoading = true;
         var location = await WeatherForecastService.GetCoordinatesForCityAsync(_cityName);
         var rawWeather = await WeatherForecastService.GetWeatherForecastAsync(_forecastDays, location.latitude, location.longitude, location.timezone);
         _weatherForecastResult = CalculateWeatherService.CalculateWeatherForecast(rawWeather);
+
         _isLoading = false;
     }
 }
