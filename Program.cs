@@ -13,6 +13,9 @@ namespace WeatherTrendAnalyzer
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
 
+            //Add in memory cache 
+            builder.Services.AddMemoryCache();
+
             //Register weather service 
             builder.Services.AddHttpClient<WeatherForecastService>();
 
