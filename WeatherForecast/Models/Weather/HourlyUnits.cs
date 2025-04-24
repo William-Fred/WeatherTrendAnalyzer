@@ -1,6 +1,6 @@
 ﻿namespace WeatherTrendAnalyzer.WeatherForecast.Models.Weather
 {
-    public class Units
+    public class HourlyUnits
     {
         public string time { get; set; }
         public string rain { get; set; }

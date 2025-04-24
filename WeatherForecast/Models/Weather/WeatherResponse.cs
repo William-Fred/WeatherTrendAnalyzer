@@ -7,7 +7,7 @@
         public double generationtime_ms { get; set; }
         public int utc_offset_seconds { get; set; }
         public double elevation { get; set; }
-        public Units units { get; set; }
-        public HourlyData HourlyData { get; set; }
+        public HourlyUnits hourly_units { get; set; }
+        public HourlyData hourly { get; set; }
     }
 }
