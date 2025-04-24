@@ -1,5 +1,5 @@
 # WeatherTrendAnalyzer
--En enkel väderapplikation som hämtar och visualiserar väderdata timme för timme baserat på geografisk plats. Appen använder sig av Open-Meteo Geocoding API och Open-Meteo DMI Forecast API för att hämta den data som presenteras.
+En enkel väderapplikation som hämtar och visualiserar väderdata timme för timme baserat på geografisk plats. Appen använder sig av Open-Meteo Geocoding API och Open-Meteo DMI Forecast API för att hämta den data som presenteras.
 
 ## Projektstruktur
 
