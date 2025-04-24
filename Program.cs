@@ -1,4 +1,5 @@
 using WeatherTrendAnalyzer.Components;
+using WeatherTrendAnalyzer.WeatherForecast.Services;
 
 namespace WeatherTrendAnalyzer
 {
@@ -11,6 +12,9 @@ namespace WeatherTrendAnalyzer
             // Add services to the container.
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
+
+            //Register weather service 
+            builder.Services.AddHttpClient<WeatherForecastService>();
 
             var app = builder.Build();
 
