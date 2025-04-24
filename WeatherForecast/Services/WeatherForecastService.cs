@@ -16,7 +16,7 @@ namespace WeatherTrendAnalyzer.WeatherForecast.Services
 
         public async Task<WeatherResponse> GetWeatherForecastAsync(int days)
         {
-            var weatherForecastUrl = $"{WeatherForecastBaseUrl}latitude=57.7072&longitude=11.9668&hourly=temperature_2m,rain&timezone=Europe%2FBerlin&forecast_days=3&models=dmi_seamless";
+            var weatherForecastUrl = $"{WeatherForecastBaseUrl}latitude=57.7072&longitude=11.9668&hourly=temperature_2m,rain&timezone=Europe%2FBerlin&forecast_days={days}&models=dmi_seamless";
 
             var response = await _httpClient.GetAsync(weatherForecastUrl);
 
