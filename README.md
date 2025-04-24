@@ -1,11 +1,10 @@
 # WeatherTrendAnalyzer
 
 ☀️ Weather Forecast App
+-
+-En enkel väderapplikation som hämtar och visualiserar väderdata timme för timme baserat på geografisk plats. Appen använder sig av Open-Meteo Geocoding API och Open-Meteo DMI Forecast API för att hämta den data som presenteras.
 
-En enkel väderapplikation som hämtar och visualiserar väderdata timme för timme baserat på geografisk plats. Appen använder sig av Open-Meteo Geocoding API och Open-Meteo DMI Forecast API för att hämta den data som presenteras.
-
-Applikationen är skriven i .NET blazor server app. 
----
+-Applikationen är skriven i .NET blazor server app. 
 
 ## Att köra applikationen
 - Öppna en terminal eller kommandoprompt.
