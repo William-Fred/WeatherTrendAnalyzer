@@ -43,7 +43,7 @@ else if (_weatherForecastResult != null)
 
     <div class="bg-white shadow rounded-lg p-4 mb-6">
         <h4 class="text-lg font-semibold mb-4">Genomsnittlig väderdata för de närmsta @_forecastDays dagarna</h4>
-        <p><strong>Genomsnittlig temperatur:</strong> @_weatherForecastResult.AverageTemp.ToString("F1") °C</p>
+        <p><strong>Genomsnittlig temperatur:</strong> @_weatherForecastResult.AverageTemp.ToString("F1") @_weatherForecastResult.TemperatureUnit</p>
         <p><strong>Max temperatur:</strong> @_weatherForecastResult.MaxTemp @_weatherForecastResult.TemperatureUnit</p>
         <p><strong>Min temperatur:</strong> @_weatherForecastResult.MinTemp @_weatherForecastResult.TemperatureUnit</p>
         <p><strong>Totalt antal timmar med regn:</strong> @_weatherForecastResult.TotalRainHours </p>
@@ -58,7 +58,7 @@ else if (_weatherForecastResult != null)
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">@day.Date.ToString("yyyy-MM-dd")</h5>
-                        <p><strong>Medeltemp:</strong> @day.AverageTemp @_weatherForecastResult.TemperatureUnit</p>
+                        <p><strong>Medeltemp:</strong> @day.AverageTemp.ToString("F1") @_weatherForecastResult.TemperatureUnit</p>
                         <p><strong>Max:</strong> @day.MaxTemperature @_weatherForecastResult.TemperatureUnit</p>
                         <p><strong>Min:</strong> @day.MinTemperature @_weatherForecastResult.TemperatureUnit</p>
                         <p><strong>Regniga timmar:</strong> @day.TotalRainDays</p>
