@@ -9,7 +9,6 @@
 
 <h3 class="text-xl font-semibold mb-4 text-center">Väderprognos</h3>
 
-
 <div class="container d-flex justify-content-center">
     <div class="w-100">
         <div class="mb-4">
@@ -40,13 +39,17 @@
 }
 else if (_weatherForecastResult != null)
 {
+    //Räkna ut vilka datum som har högsta respektive minsta temperaturen under prognostiden
+    var maxTempDay = _weatherForecastResult.DailyForecast?.OrderByDescending(d => d.MaxTemperature).FirstOrDefault();
+    var minTempDay = _weatherForecastResult.DailyForecast?.OrderBy(d => d.MinTemperature).FirstOrDefault();
 
     <div class="bg-white shadow rounded-lg p-4 mb-6">
         <h4 class="text-lg font-semibold mb-4">Genomsnittlig väderdata för de närmsta @_forecastDays dagarna</h4>
         <p><strong>Genomsnittlig temperatur:</strong> @_weatherForecastResult.AverageTemp.ToString("F1") @_weatherForecastResult.TemperatureUnit</p>
-        <p><strong>Max temperatur:</strong> @_weatherForecastResult.MaxTemp @_weatherForecastResult.TemperatureUnit</p>
-        <p><strong>Min temperatur:</strong> @_weatherForecastResult.MinTemp @_weatherForecastResult.TemperatureUnit</p>
+        <p><strong>Högsta temperaturen:</strong> @maxTempDay?.Date.ToString("yyyy-MM-dd") - @maxTempDay?.MaxTemperature.ToString("F1") @_weatherForecastResult.TemperatureUnit</p>
+        <p><strong>Lägsta temperaturen:</strong> @minTempDay?.Date.ToString("yyyy-MM-dd") - @minTempDay?.MinTemperature.ToString("F1") @_weatherForecastResult.TemperatureUnit</p>
         <p><strong>Totalt antal timmar med regn:</strong> @_weatherForecastResult.TotalRainHours </p>
+
     </div>
 
     <h4 class="text-lg font-semibold mb-2 mt-5">Daglig prognos för de närmsta @_forecastDays dagarna i staden @_cityName</h4>
